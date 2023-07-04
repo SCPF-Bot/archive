@@ -1,3 +1,7 @@
+aniwatch.to###discussion
+aniwatch.to##.share-buttons-block
+aniwatch.to###footer
+aniwatch.to##.deslide-wrap
 aniwatch.to###anime-trending
 aniwatch.to##.row
 aniwatch.to##.pc-right
