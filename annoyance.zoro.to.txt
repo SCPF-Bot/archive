@@ -1,8 +1,0 @@
-zoro.to###anime-trending
-zoro.to##.row
-zoro.to##.pc-right
-zoro.to##.footer-joingroup
-zoro.to###wrapper > .active
-zoro.to##section.block_area_home.block_area:nth-of-type(2)
-zoro.to##section.block_area_home.block_area:nth-of-type(3)
-zoro.to###main-sidebar
