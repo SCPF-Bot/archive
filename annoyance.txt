@@ -1,0 +1,18 @@
+# AniWatch Annoyance
+aniwatch.to###discussion
+aniwatch.to##.share-buttons-block
+aniwatch.to###footer
+aniwatch.to##.deslide-wrap
+aniwatch.to###anime-trending
+aniwatch.to##.row
+aniwatch.to##.pc-right
+aniwatch.to##.footer-joingroup
+aniwatch.to###wrapper > .active
+aniwatch.to##section.block_area_home.block_area:nth-of-type(2)
+aniwatch.to##section.block_area_home.block_area:nth-of-type(3)
+aniwatch.to###main-sidebar
+aniwatch.to##.anis-watch-detail
+aniwatch.to##.block_area-actors.block_area
+
+# PHCorner Annoyance
+phcorner.net##.mobile-navigation-bar
