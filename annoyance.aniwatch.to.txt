@@ -12,3 +12,4 @@ aniwatch.to##section.block_area_home.block_area:nth-of-type(3)
 aniwatch.to###main-sidebar
 aniwatch.to##.anis-watch-detail
 aniwatch.to##.block_area-actors.block_area
+aniwatch.to##.intro-app
