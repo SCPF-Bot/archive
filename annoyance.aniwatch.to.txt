@@ -1,3 +1,10 @@
+[Adblock Plus 3.4]
+! Version: 1.0
+! Title: AniWatch Annoyance
+! Last modified: 
+! Expires: 
+! Homepage: 
+!
 aniwatch.to###discussion
 aniwatch.to##.share-buttons-block
 aniwatch.to###footer
