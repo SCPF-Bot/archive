@@ -20,3 +20,19 @@ aniwatch.to###main-sidebar
 aniwatch.to##.anis-watch-detail
 aniwatch.to##.block_area-actors.block_area
 aniwatch.to##.intro-app
+!
+aniwatchtv.to###discussion
+aniwatchtv.to##.share-buttons-block
+aniwatchtv.to###footer
+aniwatchtv.to##.deslide-wrap
+aniwatchtv.to###anime-trending
+aniwatchtv.to##.row
+aniwatchtv.to##.pc-right
+aniwatchtv.to##.footer-joingroup
+aniwatchtv.to###wrapper > .active
+aniwatchtv.to##section.block_area_home.block_area:nth-of-type(2)
+aniwatchtv.to##section.block_area_home.block_area:nth-of-type(3)
+aniwatchtv.to###main-sidebar
+aniwatchtv.to##.anis-watch-detail
+aniwatcttv.to##.block_area-actors.block_area
+aniwatchtv.to##.intro-app
