@@ -1,0 +1,13 @@
+[Adblock Plus 2.0]
+! Version: 1.0
+! Title: SnapInsta Annoyance
+! Last modified: 
+! Expires: 
+! Homepage: 
+!
+snapinsta.app##.navbar-expand-lg.navbar
+snapinsta.app##.hero-tools
+snapinsta.app##.hero-heading
+snapinsta.app##.ad-box
+snapinsta.app##div.container:nth-of-type(4)
+snapinsta.app##footer > .container
