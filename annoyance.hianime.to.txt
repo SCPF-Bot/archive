@@ -1,0 +1,23 @@
+[Adblock Plus 2.0]
+! Version: 1.0
+! Title: AniWatch Annoyance
+! Last modified: 
+! Expires: 
+! Homepage: 
+!
+hianime.to###discussion
+hianime.to##.share-buttons-block
+hianime.to###footer
+hianime.to##.deslide-wrap
+hianime.to###anime-trending
+hianime.to##.row
+hianime.to##.pc-right
+hianime.to##.footer-joingroup
+hianime.to###wrapper > .active
+hianime.to##section.block_area_home.block_area:nth-of-type(2)
+hianime.to##section.block_area_home.block_area:nth-of-type(3)
+hianime.to###main-sidebar
+hianime.to##.anis-watch-detail
+hianime.to##.block_area-actors.block_area
+hianime.to##.intro-app
+!
