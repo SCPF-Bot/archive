@@ -1,6 +1,6 @@
 [Adblock Plus 2.0]
 ! Version: 1.0
-! Title: AniWatch Annoyance
+! Title: HiAnime Annoyance
 ! Last modified: 
 ! Expires: 
 ! Homepage: 
