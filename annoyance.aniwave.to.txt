@@ -1,6 +1,6 @@
 [Adblock Plus 2.0]
 ! Version: 1.0
-! Title: HiAnime Annoyance
+! Title: AniWave Annoyance
 ! Last modified: 
 ! Expires: 
 ! Homepage: 
