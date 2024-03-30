@@ -8,3 +8,4 @@
 aniwave.to##.container.hotest
 aniwave.to##.mb-3.top-tables
 aniwave.to##.sidebar
+aniwave.to##footer
