@@ -9,3 +9,6 @@ aniwave.to##.container.hotest
 aniwave.to##.mb-3.top-tables
 aniwave.to##.sidebar
 aniwave.to##footer
+aniwave.to##.mb-4.bsharing
+aniwave.to##.mb-2.text-center.mt-2
+aniwave.to##.with-tabs.with-more.head > .end
