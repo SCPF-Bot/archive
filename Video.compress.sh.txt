@@ -1,0 +1,1 @@
+ffmpeg -n -loglevel error -i inputfile.mp4 -vcodec libx264 -crf 28 -preset faster -tune film outputfilename.mp4
