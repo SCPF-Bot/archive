@@ -5,19 +5,24 @@
 ! Expires: 
 ! Homepage: 
 !
-hianime.to###discussion
-hianime.to##.share-buttons-block
-hianime.to###footer
+! Sep 22, 2024 https://hianime.to
 hianime.to##.deslide-wrap
-hianime.to###anime-trending
-hianime.to##.row
-hianime.to##.pc-right
-hianime.to##.footer-joingroup
-hianime.to###wrapper > .active
-hianime.to##section.block_area_home.block_area:nth-of-type(2)
-hianime.to##section.block_area_home.block_area:nth-of-type(3)
-hianime.to###main-sidebar
-hianime.to##.anis-watch-detail
-hianime.to##.block_area-actors.block_area
 hianime.to##.intro-app
-!
+hianime.to###anime-trending
+hianime.to##.share-buttons-home.share-buttons
+hianime.to###discussion
+hianime.to###anime-featured
+hianime.to##section.block_area_home.block_area:nth-of-type(3)
+hianime.to##.block_area-genres.block_area_sidebar.block_area
+hianime.to##.block_area-realtime.block_area_sidebar.block_area
+hianime.to##.block_area-connecting.block_area_sidebar.block_area
+hianime.to###footer
+hianime.to##.anis-watch-detail
+hianime.to##.share-buttons-detail.share-buttons
+hianime.to##.pc-right
+hianime.to###logo
+hianime.to##.ssc-quick
+hianime.to##.sc-h-sort
+hianime.to##.block_area-header-tabs.block_area-header
+hianime.to##.sb-setting
+hianime.to##.sb-donate
