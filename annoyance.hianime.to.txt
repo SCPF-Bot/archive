@@ -1,28 +1,28 @@
 [Adblock Plus 2.0]
 ! Version: 1.0
 ! Title: HiAnime Annoyance
-! Last modified: 
-! Expires: 
-! Homepage: 
+! Last modified: Dec 16, 2024
+! Expires: Dec 16, 2024
+! Homepage: https://hianime.to
 !
-! Sep 22, 2024 https://hianime.to
 hianime.to##.deslide-wrap
 hianime.to##.intro-app
+hianime.to###discussion
 hianime.to###anime-trending
 hianime.to##.share-buttons-home.share-buttons
-hianime.to###discussion
-hianime.to###anime-featured
+hianime.to##.anif-blocks
+hianime.to##section.block_area_home.block_area:nth-of-type(2)
 hianime.to##section.block_area_home.block_area:nth-of-type(3)
-hianime.to##.block_area-genres.block_area_sidebar.block_area
-hianime.to##.block_area-realtime.block_area_sidebar.block_area
 hianime.to##.block_area-connecting.block_area_sidebar.block_area
+hianime.to##.block_area-realtime.block_area_sidebar.block_area
 hianime.to###footer
-hianime.to##.anis-watch-detail
+hianime.to##.pizza-y.pizza
+hianime.to##.pizza-x.pizza
+hianime.to###mobile_menu
+hianime.to##.mw-body
+hianime.to###xfooter-about
+hianime.to##.xhashtag
+hianime.to##.anis-content
 hianime.to##.share-buttons-detail.share-buttons
+hianime.to##.ss-choice
 hianime.to##.pc-right
-hianime.to###logo
-hianime.to##.ssc-quick
-hianime.to##.sc-h-sort
-hianime.to##.block_area-header-tabs.block_area-header
-hianime.to##.sb-setting
-hianime.to##.sb-donate
