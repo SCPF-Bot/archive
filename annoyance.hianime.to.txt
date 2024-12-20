@@ -22,7 +22,6 @@ hianime.to###mobile_menu
 hianime.to##.mw-body
 hianime.to###xfooter-about
 hianime.to##.xhashtag
-hianime.to##.anis-content
 hianime.to##.share-buttons-detail.share-buttons
 hianime.to##.ss-choice
 hianime.to##.pc-right
