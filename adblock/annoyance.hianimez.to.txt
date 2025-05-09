@@ -6,22 +6,11 @@
 ! Homepage: https://hianime.to
 !
 hianimez.to##.deslide-wrap
-hianimez.to##.intro-app
-hianimez.to###discussion
 hianimez.to###anime-trending
+hianimez.to##.intro-app
 hianimez.to##.share-buttons-home.share-buttons
-hianimez.to##.anif-blocks
+hianimez.to###anime-featured
 hianimez.to##section.block_area_home.block_area:nth-of-type(2)
 hianimez.to##section.block_area_home.block_area:nth-of-type(3)
 hianimez.to##.block_area-connecting.block_area_sidebar.block_area
 hianimez.to##.block_area-realtime.block_area_sidebar.block_area
-hianimez.to###footer
-hianimez.to##.pizza-y.pizza
-hianimez.to##.pizza-x.pizza
-hianimez.to###mobile_menu
-hianimez.to##.mw-body
-hianimez.to###xfooter-about
-hianimez.to##.xhashtag
-hianimez.to##.share-buttons-detail.share-buttons
-hianimez.to##.ss-choice
-hianimez.to##.pc-right
