@@ -7,7 +7,7 @@
 ### Backup
 - [**(KDBX 3.1) Cryptography Vault**](https://github.com/SCPF-Archive/files/raw/refs/heads/main/backup/(KDBX%203.1)%20Cryptography%20Vault.kdbx)
 - [**(Old) Cryptography Vault**](https://github.com/SCPF-Archive/files/raw/refs/heads/main/backup/Cryptography-Vault.kdbx)
-- [**Hybrid Animals Data (MOD)](https://github.com/SCPF-Archive/files/raw/refs/heads/main/backup/hybrid.animals.mod.data.7z)
+- [**Hybrid Animals Data (MOD)**](https://github.com/SCPF-Archive/files/raw/refs/heads/main/backup/hybrid.animals.mod.data.7z)
 
 ### Dump Files
 - [**Resume (No Photo)**](https://github.com/SCPF-Archive/files/raw/refs/heads/main/dump.files/AJCastil.nopic.pdf)
