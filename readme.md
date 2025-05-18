@@ -19,6 +19,5 @@
 # Outside Links
 
 ### Adblock 
-- [**Click To Load (yokoffing)**](https://github.com/yokoffing/filterlists/blob/main/click2load.txt)
 - [**Block Fonts (fanboy)**](https://www.fanboy.co.nz/fanboy-antifonts.txt)
 
