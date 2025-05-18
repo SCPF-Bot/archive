@@ -1,8 +1,8 @@
 # LINKS
 
 ### Adblock
-- [**HiAnime Annoyance**](https://github.com/SCPF-Archive/files/raw/refs/heads/main/adblock/annoyance.hianimez.to.txt)
-- [**SpapInsta Annoyance**](https://github.com/SCPF-Archive/files/raw/refs/heads/main/adblock/annoyance.snapinsta.app.txt)
+- [**Anime Annoyance**](https://github.com/SCPF-Archive/files/raw/refs/heads/main/adblock/annoyance.anime.txt)
+- [**SpapInsta Annoyance**](https://github.com/SCPF-Archive/files/raw/refs/heads/main/adblock/annoyance.snapinsta.txt)
 
 ### Backup
 - [**(KDBX 3.1) Cryptography Vault**](https://github.com/SCPF-Archive/files/raw/refs/heads/main/backup/(KDBX%203.1)%20Cryptography%20Vault.kdbx)
