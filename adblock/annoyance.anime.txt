@@ -1,8 +1,8 @@
 [Adblock Plus 2.0]
 ! Version: 1.0
-! Title: HiAnime Annoyance
+! Title:Anime Annoyance
 ! Last modified: Dec 16, 2024
-! Expires: Dec 16, 2024
+! Expires: Jun 12, 2036
 ! Homepage: https://hianime.to
 !
 hianimez.to##.deslide-wrap
