@@ -4,6 +4,9 @@
 ! Last modified: 
 ! Expires: 
 ! Homepage: https://hianime.to
+! Websites: hianimez.to animekai.to
+!
+!
 !
 hianimez.to##.deslide-wrap
 hianimez.to###anime-trending
@@ -20,3 +23,4 @@ hianimez.to##.block_area-realtime.block_area_sidebar.block_area
 animekai.to##.swiper-backface-hidden.swiper-android.swiper-horizontal.swiper-initialized.alist-group.swiper
 animekai.to##footer
 animekai.to##.entity-section
+!
