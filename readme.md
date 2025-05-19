@@ -20,4 +20,4 @@
 
 ### Adblock 
 - [**Block Fonts (fanboy)**](https://www.fanboy.co.nz/fanboy-antifonts.txt)
-
+- [**Block Beacon (Iron Fox)**](https://github.com/celenityy/Phoenix/raw/refs/heads/pages/uBlock/beacon.txt)
