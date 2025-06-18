@@ -11,8 +11,8 @@
 - [**kdbx.4.key.txt**](https://github.com/SCPF-Archive/files/raw/refs/heads/main/backup/kdbx.4.key.txt)
 
 ### Dump Files
-- [**Resume (No Photo)**](https://github.com/SCPF-Archive/files/raw/refs/heads/main/dump.files/AJCastil.nopic.pdf)
-- [**Resume**](https://github.com/SCPF-Archive/files/raw/refs/heads/main/dump.files/AJCastil.pic.pdf)
+- [**Resume (No Photo)**](https://github.com/SCPF-Bot/files/raw/refs/heads/main/dump.files/resume.pdf)
+- [**Resume**](https://github.com/SCPF-Bot/files/raw/refs/heads/main/dump.files/resume.pic.pdf)
 - [**ChatGPT Prompt**](https://github.com/SCPF-Archive/files/raw/refs/heads/main/dump.files/donotreadme.txt)
 
 ---
