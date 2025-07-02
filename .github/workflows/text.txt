@@ -8,20 +8,20 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout Repository
+      - name: Checkout
         uses: actions/checkout@latest
 
       - name: Download Files (url.txt)
         run: |
-          mkdir -p downloads
+          mkdir -p repositories
 
-          DOWNLOADS_DIR="${GITHUB_WORKSPACE}/downloads"
+          REPO_DIR="${GITHUB_WORKSPACE}/repositories"
           while read -r url; do
             [ -z "$url" ] && continue
             filename=$(basename "$url")
-            # Try curl first, fallback to wget if curl fails
-            if ! curl -fsSL "$url" -o "${DOWNLOADS_DIR}/$filename"; then
-              wget -q "$url" -O "${DOWNLOADS_DIR}/$filename" || echo "Failed to download $url"
+            # CURL to WGET
+            if ! curl -fsSL "$url" -o "${REPO_DIR}/$filename"; then
+              wget -q "$url" -O "${REPO_DIR}/$filename" || echo "Failed to download $url."
             fi
           done < "${GITHUB_WORKSPACE}/url.txt"
 
@@ -30,20 +30,21 @@ jobs:
           git config user.name "${{ github.actor }}"
           git config user.email "${{ github.actor }}@users.noreply.github.com"
 
-          DOWNLOADS_DIR="${GITHUB_WORKSPACE}/downloads"
-          cd "$DOWNLOADS_DIR"
+          REPO_DIR="${GITHUB_WORKSPACE}/repositories"
+          cd "$REPO_DIR"
           shopt -s nullglob
           for file in *; do
             [ -f "$file" ] && xz -9 -e -k "$file" && rm "$file"
           done
 
           if ls *.xz 1> /dev/null 2>&1; then
-            tar -cJf "${GITHUB_WORKSPACE}/downloads_double_compressed.tar.xz" *.xz && rm *.xz
+            tar -cJf "${GITHUB_WORKSPACE}/repositories.tar.xz" *.xz && rm *.xz
           fi
 
           cd "${GITHUB_WORKSPACE}"
           DATE_STR=$(date +"%Y/%m/%d")
-          git add downloads/ downloads_double_compressed.tar.xz
+          git add repositories/ repositories.tar.xz
+          mv repositories.tar.xz repositories."${DATE_STIR}".tar.xz
           git commit -m "${DATE_STR} Update" || exit 0
           git push origin HEAD:main
         env:
