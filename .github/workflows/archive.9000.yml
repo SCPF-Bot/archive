@@ -56,7 +56,7 @@ jobs:
           ARCHIVE_NAME="repositories.${DATE_STR}.tar.xz"
           if [ -f repositories.tar.xz ]; then
             mv -f repositories.tar.xz "$ARCHIVE_NAME"
-            git add *
+            git add -f *
             git commit -m "${DATE_STR} Update" || echo "Nothing to commit"
             git push origin HEAD
           else
