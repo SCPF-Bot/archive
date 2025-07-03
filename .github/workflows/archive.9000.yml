@@ -9,21 +9,24 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - run: mkdir -p repositories
+      - run: mkdir -p "${GITHUB_WORKSPACE}/repositories"
 
-      - run: '[ -f repositories/url.txt ]'
+      - run: '[ -f "${GITHUB_WORKSPACE}/repositories/url.txt" ]'
 
       - run: |
-          d=repositories
-          while IFS= read -r u; do [ -z "$u" ] && continue
-            f=$d/$(basename "$u")
+          repo-dir="${GITHUB_WORKSPACE}/repositories"
+          while IFS= read -r u; do
+            [ -z "$u" ] && continue
+            f="$repo-dir/$(basename "$u")"
             curl -fSLs "$u" -o "$f" || wget -q "$u" -O "$f" || true
-          done < $d/url.txt
+          done < "$repo-dir/url.txt"
 
       - run: |
-          d=repositories
-          cd $d
-          for f in *; do [ -f "$f" ] && [ "$f" != url.txt ] && [ "$f" != repositories.tar.xz ] && xz -9ek "$f" && rm "$f"; done
+          repo-dir="${GITHUB_WORKSPACE}/repositories"
+          cd "$repo-dir"
+          for f in *; do
+            [ -f "$f" ] && [ "$f" != url.txt ] && [ "$f" != repositories.tar.xz ] && xz -9ek "$f" && rm "$f"
+          done
           ls *.xz 2>/dev/null && tar -cJf repositories.tar.xz *.xz && rm *.xz || :
 
       - env:
@@ -32,9 +35,10 @@ jobs:
           git config user.name "${{ github.actor }}"
           git config user.email "${{ github.actor }}@users.noreply.github.com"
           git config --global --add safe.directory "$GITHUB_WORKSPACE"
-          cd repositories
-          d=$(date +%Y-%m-%d)
-          [ -f repositories.tar.xz ] && [ ! -f repositories.$d.tar.xz ] && mv repositories.tar.xz repositories.$d.tar.xz || :
+          repo-dir="${GITHUB_WORKSPACE}/repositories"
+          cd "$repo-dir"
+          today=$(date +%Y-%m-%d)
+          [ -f repositories.tar.xz ] && [ ! -f repositories.$today.tar.xz ] && mv repositories.tar.xz repositories.$today.tar.xz || :
           git add -A
-          git commit -m "$d Update (archive and all changes)" || :
+          git commit -m "$today Update (archive and all changes)" || :
           git push origin HEAD
