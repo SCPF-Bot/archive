@@ -11,39 +11,90 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Prepare Directories
-        run: mkdir -p repositories
+        run: |
+          set -euo pipefail
+          echo "[INFO] Creating 'repositories' directory at ${{ github.workspace }}/repositories"
+          mkdir -p "${GITHUB_WORKSPACE}/repositories"
+          echo "[INFO] Directory prepared."
 
-      - name: Download Files (url.txt)
+      - name: Check for url.txt
+        run: |
+          set -euo pipefail
+          URL_LIST="${GITHUB_WORKSPACE}/repositories/url.txt"
+          if [ ! -f "$URL_LIST" ]; then
+            echo "[ERROR] No url.txt found at $URL_LIST"
+            ls -l "${GITHUB_WORKSPACE}/repositories" || true
+            exit 1
+          else
+            echo "[INFO] Found url.txt at $URL_LIST"
+            echo "[INFO] Contents of url.txt:"
+            cat "$URL_LIST"
+          fi
+
+      - name: Download Files from url.txt
         run: |
           set -euo pipefail
           REPO_DIR="${GITHUB_WORKSPACE}/repositories"
           URL_LIST="${REPO_DIR}/url.txt"
-          if [ ! -f "$URL_LIST" ]; then
-            echo "No url.txt found at $URL_LIST"
-            exit 1
-          fi
-          while read -r url; do
+          echo "[INFO] Starting download of files listed in url.txt"
+          SUCCESS=0
+          FAIL=0
+          while IFS= read -r url; do
             [ -z "$url" ] && continue
             filename=$(basename "$url")
-            if ! curl -fsSL "$url" -o "${REPO_DIR}/$filename"; then
-              wget -q "$url" -O "${REPO_DIR}/$filename" || echo "Failed to download $url."
+            echo "[INFO] Downloading $url as $filename..."
+            if curl -fSL --progress-bar "$url" -o "${REPO_DIR}/$filename"; then
+              echo "[SUCCESS] Downloaded $url"
+              SUCCESS=$((SUCCESS+1))
+            else
+              echo "[WARN] curl failed for $url, trying wget..."
+              if wget --progress=dot:giga -q "$url" -O "${REPO_DIR}/$filename"; then
+                echo "[SUCCESS] Downloaded $url using wget"
+                SUCCESS=$((SUCCESS+1))
+              else
+                echo "[ERROR] Failed to download $url with both curl and wget"
+                FAIL=$((FAIL+1))
+              fi
             fi
           done < "$URL_LIST"
+          echo "[SUMMARY] Download completed: $SUCCESS succeeded, $FAIL failed."
+          echo "[INFO] Downloaded files:"
+          ls -lh "$REPO_DIR" || true
 
       - name: Compress Files
         run: |
           set -euo pipefail
           REPO_DIR="${GITHUB_WORKSPACE}/repositories"
           cd "$REPO_DIR"
+          echo "[INFO] Beginning compression of files (excluding url.txt)..."
           shopt -s nullglob
+          COUNT=0
           for file in *; do
-            [ -f "$file" ] && [ "$file" != "url.txt" ] && xz -9 -e -k "$file" && rm "$file"
+            if [ -f "$file" ] && [ "$file" != "url.txt" ]; then
+              echo "[INFO] Compressing $file to $file.xz"
+              xz -9 -e -k "$file"
+              if [ -f "$file.xz" ]; then
+                echo "[SUCCESS] Compressed $file"
+                rm "$file"
+                COUNT=$((COUNT+1))
+              else
+                echo "[ERROR] Compression failed for $file"
+              fi
+            fi
           done
-          if ls *.xz 1> /dev/null 2>&1; then
-            tar -cJf "${REPO_DIR}/repositories.tar.xz" *.xz && rm *.xz
+          if [ $COUNT -gt 0 ]; then
+            echo "[INFO] Creating tar.xz archive from compressed files:"
+            ls -lh *.xz
+            tar -cJvf "${REPO_DIR}/repositories.tar.xz" *.xz
+            echo "[SUCCESS] Archive created: repositories.tar.xz"
+            rm *.xz
+          else
+            echo "[WARN] No files were compressed, skipping archive creation."
           fi
+          echo "[INFO] Remaining files in $REPO_DIR:"
+          ls -lh
 
-      - name: Commit and Push Archive
+      - name: Commit and Push Everything
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
@@ -55,10 +106,14 @@ jobs:
           DATE_STR=$(date +"%Y-%m-%d")
           ARCHIVE_NAME="repositories.${DATE_STR}.tar.xz"
           if [ -f repositories.tar.xz ]; then
+            echo "[INFO] Renaming archive to $ARCHIVE_NAME"
             mv -f repositories.tar.xz "$ARCHIVE_NAME"
-            git add -f *
-            git commit -m "${DATE_STR} Update" || echo "Nothing to commit"
-            git push origin HEAD
-          else
-            echo "No archive created; skipping commit/push."
           fi
+          echo "[INFO] Adding all changes to git"
+          git add -A
+          echo "[INFO] Git status after add:"
+          git status
+          git commit -m "${DATE_STR} Update (archive and all changes)" || echo "[WARN] Nothing to commit"
+          echo "[INFO] Pushing to branch: $(git branch --show-current)"
+          git push origin HEAD
+          echo "[SUCCESS] All changes committed and pushed."
