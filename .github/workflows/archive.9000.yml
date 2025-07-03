@@ -10,7 +10,9 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Check Directory
-        run: mkdir -p "${GITHUB_WORKSPACE}/repositories"
+        run: |
+          mkdir -p "${GITHUB_WORKSPACE}/repositories"
+          mkdir -p "${GITHUB_WORKSPACE}/backup/repositories"
 
       - name: Check URL File
         run: |
@@ -31,20 +33,17 @@ jobs:
 
       - name: Archive
         run: |
-          set -e
+          d="${GITHUB_WORKSPACE}/repositories"
+          dd="${GITHUB_WORKSPACE}/backup/repositories"
+          dt=$(date +%Y.%m.%d)
+          mkdir -p "$d"
           shopt -s nullglob
-          repo_dir="${GITHUB_WORKSPACE}/repositories"
-          date_str=$(date +'%Y.%m.%d')
-          archive="${GITHUB_WORKSPACE}/repositories.$date_str.tar.xz"
-          xz_files=("$repo_dir"/*.xz)
-          if [ ${#xz_files[@]} -gt 0 ]; then
-            tar -cJf "$archive" -C "$repo_dir" $(basename -a "${xz_files[@]}")
-            rm "${xz_files[@]}"
-          else
-            echo "no .xz files to archive."
-          fi
+          for f in "$d"/*; do [ -f "$f" ] && xz -9 "$f"; done
+          [ -n "$(ls -A "$d"/*.xz 2>/dev/null)" ] && tar -cJvf "$d/repositories.tar.xz" -C "$d" --remove-files *.xz
+          mv -f "$d/repositories.tar.xz" "$d/$dt.tar.xz"
+          mv -f "$d/$dt.tar.xz" "$dd/$dt.tar.xz"
 
-      - name: Commit & push archive and changes
+      - name: Commit and Push
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
