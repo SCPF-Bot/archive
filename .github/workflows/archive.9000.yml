@@ -6,7 +6,6 @@ on:
 jobs:
   archive-9000:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -16,6 +15,7 @@ jobs:
 
       - name: Download Files (url.txt)
         run: |
+          set -euo pipefail
           REPO_DIR="${GITHUB_WORKSPACE}/repositories"
           URL_LIST="${REPO_DIR}/url.txt"
           if [ ! -f "$URL_LIST" ]; then
@@ -32,6 +32,7 @@ jobs:
 
       - name: Compress Files
         run: |
+          set -euo pipefail
           REPO_DIR="${GITHUB_WORKSPACE}/repositories"
           cd "$REPO_DIR"
           shopt -s nullglob
@@ -39,22 +40,23 @@ jobs:
             [ -f "$file" ] && [ "$file" != "url.txt" ] && xz -9 -e -k "$file" && rm "$file"
           done
           if ls *.xz 1> /dev/null 2>&1; then
-            tar -cJf "${GITHUB_WORKSPACE}/repositories.tar.xz" *.xz && rm *.xz
+            tar -cJf "${REPO_DIR}/repositories.tar.xz" *.xz && rm *.xz
           fi
 
       - name: Commit and Push Archive
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
+          set -euo pipefail
           git config user.name "${{ github.actor }}"
           git config user.email "${{ github.actor }}@users.noreply.github.com"
           git config --global --add safe.directory "${GITHUB_WORKSPACE}"
-          cd "${GITHUB_WORKSPACE}"
+          cd "${GITHUB_WORKSPACE}/repositories"
           DATE_STR=$(date +"%Y-%m-%d")
           ARCHIVE_NAME="repositories.${DATE_STR}.tar.xz"
           if [ -f repositories.tar.xz ]; then
             mv -f repositories.tar.xz "$ARCHIVE_NAME"
-            git add repositories/ "$ARCHIVE_NAME"
+            git add *
             git commit -m "${DATE_STR} Update" || echo "Nothing to commit"
             git push origin HEAD
           else
