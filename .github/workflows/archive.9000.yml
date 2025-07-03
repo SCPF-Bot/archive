@@ -9,21 +9,26 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@latest
+        uses: actions/checkout@v4
 
       - name: Download Files (url.txt)
         run: |
           mkdir -p repositories
 
           REPO_DIR="${GITHUB_WORKSPACE}/repositories"
+          URL_LIST="${REPO_DIR}/url.txt"
+          if [ ! -f "$URL_LIST" ]; then
+            echo "No url.txt found at $URL_LIST"
+            exit 1
+          fi
+
           while read -r url; do
             [ -z "$url" ] && continue
             filename=$(basename "$url")
-            # CURL to WGET
             if ! curl -fsSL "$url" -o "${REPO_DIR}/$filename"; then
               wget -q "$url" -O "${REPO_DIR}/$filename" || echo "Failed to download $url."
             fi
-          done < "${GITHUB_WORKSPACE}/repositories/url.txt"
+          done < "$URL_LIST"
 
       - name: Compress, Commit, Push
         run: |
