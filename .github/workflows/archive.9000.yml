@@ -39,7 +39,7 @@ jobs:
           cd "$REPO_DIR"
           shopt -s nullglob
           for file in *; do
-            [ -f "$file" ] && xz -9 -e -k "$file" && rm "$file"
+            [ -f "$file" ] && [ "$file" != "url.txt" ] && xz -9 -e -k "$file" && rm "$file"
           done
 
           if ls *.xz 1> /dev/null 2>&1; then
