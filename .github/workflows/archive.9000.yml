@@ -28,6 +28,7 @@ jobs:
             [ -f "$f" ] && [ "$f" != url.txt ] && [ "$f" != repositories.tar.xz ] && xz -9ek "$f" && rm "$f"
           done
           ls *.xz 2>/dev/null && tar -cJf repositories.tar.xz *.xz && rm *.xz || :
+          ls -lh
 
       - env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -37,8 +38,9 @@ jobs:
           git config --global --add safe.directory "$GITHUB_WORKSPACE"
           repo_dir="${GITHUB_WORKSPACE}/repositories"
           cd "$repo_dir"
+          ls -lh
           today=$(date +%Y-%m-%d)
-          [ -f repositories.tar.xz ] && [ ! -f repositories.$today.tar.xz ] && mv repositories.tar.xz repositories.$today.tar.xz || :
+          mv -f repositories.tar.xz repositories.$today.tar.xz || :
           git add -A
           git commit -m "$today Update (archive and all changes)" || :
           git push origin HEAD
