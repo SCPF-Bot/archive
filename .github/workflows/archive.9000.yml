@@ -14,16 +14,16 @@ jobs:
       - run: '[ -f "${GITHUB_WORKSPACE}/repositories/url.txt" ]'
 
       - run: |
-          repo-dir="${GITHUB_WORKSPACE}/repositories"
+          repo_dir="${GITHUB_WORKSPACE}/repositories"
           while IFS= read -r u; do
             [ -z "$u" ] && continue
-            f="$repo-dir/$(basename "$u")"
+            f="$repo_dir/$(basename "$u")"
             curl -fSLs "$u" -o "$f" || wget -q "$u" -O "$f" || true
-          done < "$repo-dir/url.txt"
+          done < "$repo_dir/url.txt"
 
       - run: |
-          repo-dir="${GITHUB_WORKSPACE}/repositories"
-          cd "$repo-dir"
+          repo_dir="${GITHUB_WORKSPACE}/repositories"
+          cd "$repo_dir"
           for f in *; do
             [ -f "$f" ] && [ "$f" != url.txt ] && [ "$f" != repositories.tar.xz ] && xz -9ek "$f" && rm "$f"
           done
@@ -36,7 +36,7 @@ jobs:
           git config user.email "${{ github.actor }}@users.noreply.github.com"
           git config --global --add safe.directory "$GITHUB_WORKSPACE"
           repo-dir="${GITHUB_WORKSPACE}/repositories"
-          cd "$repo-dir"
+          cd "$repo_dir"
           today=$(date +%Y-%m-%d)
           [ -f repositories.tar.xz ] && [ ! -f repositories.$today.tar.xz ] && mv repositories.tar.xz repositories.$today.tar.xz || :
           git add -A
