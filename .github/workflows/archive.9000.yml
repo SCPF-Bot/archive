@@ -9,38 +9,48 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - run: mkdir -p "${GITHUB_WORKSPACE}/repositories"
+      - name: Check Directory
+        run: mkdir -p "${GITHUB_WORKSPACE}/repositories"
 
-      - run: '[ -f "${GITHUB_WORKSPACE}/repositories/url.txt" ]'
+      - name: Check URL File
+        run: |
+          if [ ! -f "${GITHUB_WORKSPACE}/repositories/url.txt" ]; then
+            echo "repositories/url.txt not found!"
+            exit 1
+          fi
 
-      - run: |
+      - name: Download
+        run: |
+          set -e
           repo_dir="${GITHUB_WORKSPACE}/repositories"
           while IFS= read -r u; do
             [ -z "$u" ] && continue
             f="$repo_dir/$(basename "$u")"
-            curl -fSLs "$u" -o "$f" || wget -q "$u" -O "$f" || true
+            curl -fSLs "$u" -o "$f" || wget -q "$u" -O "$f"
           done < "$repo_dir/url.txt"
 
-      - run: |
+      - name: Archive
+        run: |
+          set -e
+          shopt -s nullglob
           repo_dir="${GITHUB_WORKSPACE}/repositories"
-          cd "$repo_dir"
-          for f in *; do
-            [ -f "$f" ] && [ "$f" != url.txt ] && [ "$f" != repositories.tar.xz ] && xz -9ek "$f" && rm "$f"
-          done
-          ls *.xz 2>/dev/null && tar -cJf repositories.tar.xz *.xz && rm *.xz || :
-          ls -lh
+          date_str=$(date +'%Y.%m.%d')
+          archive="${GITHUB_WORKSPACE}/repositories.$date_str.tar.xz"
+          xz_files=("$repo_dir"/*.xz)
+          if [ ${#xz_files[@]} -gt 0 ]; then
+            tar -cJf "$archive" -C "$repo_dir" $(basename -a "${xz_files[@]}")
+            rm "${xz_files[@]}"
+          else
+            echo "no .xz files to archive."
+          fi
 
-      - env:
+      - name: Commit & push archive and changes
+        env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           git config user.name "${{ github.actor }}"
           git config user.email "${{ github.actor }}@users.noreply.github.com"
           git config --global --add safe.directory "$GITHUB_WORKSPACE"
-          repo_dir="${GITHUB_WORKSPACE}/repositories"
-          cd "$repo_dir"
-          ls -lh
-          today=$(date +%Y-%m-%d)
-          mv -f repositories.tar.xz repositories.$today.tar.xz || :
           git add -A
-          git commit -m "$today Update (archive and all changes)" || :
+          git commit -m "$(date +%Y-%m-%d) Update (archive and all changes)" || exit 0
           git push origin HEAD
