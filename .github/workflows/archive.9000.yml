@@ -35,7 +35,7 @@ jobs:
           git config user.name "${{ github.actor }}"
           git config user.email "${{ github.actor }}@users.noreply.github.com"
           git config --global --add safe.directory "$GITHUB_WORKSPACE"
-          repo-dir="${GITHUB_WORKSPACE}/repositories"
+          repo_dir="${GITHUB_WORKSPACE}/repositories"
           cd "$repo_dir"
           today=$(date +%Y-%m-%d)
           [ -f repositories.tar.xz ] && [ ! -f repositories.$today.tar.xz ] && mv repositories.tar.xz repositories.$today.tar.xz || :
