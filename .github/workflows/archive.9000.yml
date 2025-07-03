@@ -11,17 +11,17 @@ jobs:
       - name: Checkout
         uses: actions/checkout@latest
 
+      - name: Prepare Directories
+        run: mkdir -p repositories
+
       - name: Download Files (url.txt)
         run: |
-          mkdir -p repositories
-
           REPO_DIR="${GITHUB_WORKSPACE}/repositories"
           URL_LIST="${REPO_DIR}/url.txt"
           if [ ! -f "$URL_LIST" ]; then
             echo "No url.txt found at $URL_LIST"
             exit 1
           fi
-
           while read -r url; do
             [ -z "$url" ] && continue
             filename=$(basename "$url")
@@ -30,26 +30,33 @@ jobs:
             fi
           done < "$URL_LIST"
 
-      - name: Compress, Commit, Push
+      - name: Compress Files
         run: |
-          git config user.name "${{ github.actor }}"
-          git config user.email "${{ github.actor }}@users.noreply.github.com"
-
           REPO_DIR="${GITHUB_WORKSPACE}/repositories"
           cd "$REPO_DIR"
           shopt -s nullglob
           for file in *; do
             [ -f "$file" ] && [ "$file" != "url.txt" ] && xz -9 -e -k "$file" && rm "$file"
           done
-
           if ls *.xz 1> /dev/null 2>&1; then
             tar -cJf "${GITHUB_WORKSPACE}/repositories.tar.xz" *.xz && rm *.xz
           fi
 
+      - name: Commit and Push Archive
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          git config user.name "${{ github.actor }}"
+          git config user.email "${{ github.actor }}@users.noreply.github.com"
+          git config --global --add safe.directory "${GITHUB_WORKSPACE}"
           cd "${GITHUB_WORKSPACE}"
           DATE_STR=$(date +"%Y-%m-%d")
           ARCHIVE_NAME="repositories.${DATE_STR}.tar.xz"
-          mv -f repositories.tar.xz "$ARCHIVE_NAME"
-          git add repositories/ "$ARCHIVE_NAME"
-          git commit -m "${DATE_STR} Update" || exit 0
-          git push origin HEAD:main
+          if [ -f repositories.tar.xz ]; then
+            mv -f repositories.tar.xz "$ARCHIVE_NAME"
+            git add repositories/ "$ARCHIVE_NAME"
+            git commit -m "${DATE_STR} Update" || echo "Nothing to commit"
+            git push origin HEAD
+          else
+            echo "No archive created; skipping commit/push."
+          fi
