@@ -11,8 +11,7 @@ jobs:
 
       - name: Check Directory
         run: |
-          mkdir -p "${GITHUB_WORKSPACE}/repositories"
-          mkdir -p "${GITHUB_WORKSPACE}/backup/repositories"
+          mkdir -p "${GITHUB_WORKSPACE}/repositories" "${GITHUB_WORKSPACE}/backup/repositories"
 
       - name: Check URL File
         run: |
