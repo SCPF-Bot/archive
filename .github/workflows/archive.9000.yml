@@ -23,7 +23,7 @@ jobs:
             if ! curl -fsSL "$url" -o "${REPO_DIR}/$filename"; then
               wget -q "$url" -O "${REPO_DIR}/$filename" || echo "Failed to download $url."
             fi
-          done < "${GITHUB_WORKSPACE}/url.txt"
+          done < "${GITHUB_WORKSPACE}/repositories/url.txt"
 
       - name: Compress, Commit, Push
         run: |
