@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  archive.9000:
+  archive-9000:
     runs-on: ubuntu-latest
 
     steps:
@@ -42,10 +42,9 @@ jobs:
           fi
 
           cd "${GITHUB_WORKSPACE}"
-          DATE_STR=$(date +"%Y/%m/%d")
-          git add repositories/ repositories.tar.xz
-          mv repositories.tar.xz repositories."${DATE_STIR}".tar.xz
+          DATE_STR=$(date +"%Y-%m-%d")
+          ARCHIVE_NAME="repositories.${DATE_STR}.tar.xz"
+          mv -f repositories.tar.xz "$ARCHIVE_NAME"
+          git add repositories/ "$ARCHIVE_NAME"
           git commit -m "${DATE_STR} Update" || exit 0
           git push origin HEAD:main
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
